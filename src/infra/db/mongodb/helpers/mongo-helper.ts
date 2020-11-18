@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { Collection, MongoClient } from 'mongodb'
 
 export class MongoHelper {
   static client: MongoClient
@@ -12,5 +12,9 @@ export class MongoHelper {
 
   static async disconnect (): Promise<void> {
     await MongoHelper.client.close()
+  }
+
+  static getCollection (name: string): Collection {
+    return MongoHelper.client.db().collection(name)
   }
 }
