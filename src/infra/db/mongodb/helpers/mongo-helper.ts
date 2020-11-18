@@ -17,4 +17,9 @@ export class MongoHelper {
   static getCollection (name: string): Collection {
     return MongoHelper.client.db().collection(name)
   }
+
+  static map (account: any): any {
+    const { _id, ...accountWithoutInternalId } = account
+    return Object.assign({}, accountWithoutInternalId, { id: _id })
+  }
 }
