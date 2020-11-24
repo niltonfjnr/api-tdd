@@ -2,8 +2,10 @@ import { Collection, MongoClient } from 'mongodb'
 
 export class MongoHelper {
   static client: MongoClient
+  static uri: string
 
   static async connect (uri: string): Promise<void> {
+    MongoHelper.uri = uri
     MongoHelper.client = await MongoClient.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -11,11 +13,22 @@ export class MongoHelper {
   }
 
   static async disconnect (): Promise<void> {
-    await MongoHelper.client.close()
+    await MongoHelper.client?.close()
+    Object.assign(MongoHelper, { client: null })
   }
 
-  static getCollection (name: string): Collection {
-    return MongoHelper.client.db().collection(name)
+  static async getCollection (name: string): Promise<Collection> {
+    const client = await MongoHelper.verifyConnection(MongoHelper.client)
+    return client.db().collection(name)
+  }
+
+  static async verifyConnection (connection: MongoClient): Promise<MongoClient> {
+    if (connection?.isConnected()) {
+      return connection
+    } else {
+      await MongoHelper.connect(MongoHelper.uri)
+      return MongoHelper.client
+    }
   }
 
   static map (account: any): any {
