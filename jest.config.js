@@ -1,6 +1,6 @@
 module.exports = {
   roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/main/**'],
   coveragePathIgnorePatterns: ['protocols/*', 'domain/*'],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
