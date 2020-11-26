@@ -28,7 +28,7 @@ describe('Mongo Helper', () => {
     expect(currentClient).toBeTruthy()
   })
 
-  test('Should verify if connection open another one', async () => {
+  test('Should connection method open another one', async () => {
     const client = sut.client
     await sut.disconnect()
     expect(client).toBeTruthy()
