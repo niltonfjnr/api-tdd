@@ -13,7 +13,7 @@ export class MongoHelper {
   }
 
   static async disconnect (): Promise<void> {
-    await MongoHelper.client?.close()
+    await MongoHelper.client.close()
     Object.assign(MongoHelper, { client: null })
   }
 
