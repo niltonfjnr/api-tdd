@@ -4,9 +4,11 @@ import { Validation } from './validation'
 export class RequiredFieldValidation implements Validation {
   constructor (private readonly fieldName: string) { }
 
-  validate (input: any): Error | any {
+  validate (input: any): Error {
     if (!input[this.fieldName]) {
       return new MissingParamError(this.fieldName)
+    } else {
+      return false as unknown as Error
     }
   }
 }
