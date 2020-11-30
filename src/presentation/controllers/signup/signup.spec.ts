@@ -13,7 +13,7 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator()
   const addAccountStub = makeAddAccount()
-  const validationStub = makevalidation()
+  const validationStub = makeValidation()
   const sut = new SignUpController(emailValidatorStub, addAccountStub, validationStub)
 
   return { sut, emailValidatorStub, addAccountStub, validationStub }
@@ -58,10 +58,10 @@ const makeFakeAccount = (): AccountModel => {
   }
 }
 
-const makevalidation = (): Validation => {
+const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate (input: any): Error {
-      return new Error()
+    validate (input: any): Error | any {
+      return null
     }
   }
   return new ValidationStub()
@@ -200,5 +200,13 @@ describe('SignUp Controller', () => {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+
+  test('Should return 400 if Validation returns an error', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+    const httpResponse = await sut.handle(makeFakeRequest())
+
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
