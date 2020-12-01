@@ -4,7 +4,7 @@ import {
 } from './signup-protocols'
 
 import { ServerError } from '../../errors'
-import { badRequest, serverError, ok } from '../../helpers/http-helper'
+import { badRequest, serverError, ok } from '../../helpers/http/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
