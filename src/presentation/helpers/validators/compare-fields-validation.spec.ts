@@ -11,7 +11,7 @@ const makeSut = (): SutTypes => {
 }
 
 describe('CompareFieldsValidation', () => {
-  test('Should return a MissingParamError if Validation fails', () => {
+  test('Should return a InvalidParamError if Validation fails', () => {
     const { sut } = makeSut()
 
     const error = sut.validate({
