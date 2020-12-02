@@ -25,10 +25,9 @@ export class MongoHelper {
   static async verifyConnection (connection: MongoClient): Promise<MongoClient> {
     if (connection?.isConnected()) {
       return connection
-    } else {
-      await MongoHelper.connect(MongoHelper.uri)
-      return MongoHelper.client
     }
+    await MongoHelper.connect(MongoHelper.uri)
+    return MongoHelper.client
   }
 
   static map (account: any): any {
