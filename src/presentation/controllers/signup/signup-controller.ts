@@ -1,7 +1,7 @@
 import {
   HttpRequest, HttpResponse, Controller,
   AddAccount, Validation
-} from './signup-protocols'
+} from './signup-controller-protocols'
 
 import { ServerError } from '../../errors'
 import { badRequest, serverError, ok } from '../../helpers/http/http-helper'
