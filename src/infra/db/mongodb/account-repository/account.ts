@@ -22,6 +22,6 @@ export class AccountMongoRepository implements
 
   async updateAccessToken (id: string, token: string): Promise<any> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    await accountCollection?.updateOne({ _id: id }, { $set: { accessToken: token } })
+    accountCollection && await accountCollection.updateOne({ _id: id }, { $set: { accessToken: token } })
   }
 }

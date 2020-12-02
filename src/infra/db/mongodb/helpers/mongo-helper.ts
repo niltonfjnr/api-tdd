@@ -18,16 +18,17 @@ export class MongoHelper {
   }
 
   static async getCollection (name: string): Promise<Collection> {
-    const client = await MongoHelper.verifyConnection(MongoHelper.client)
+    const client = await MongoHelper.verifyConnection()
     return client.db().collection(name)
   }
 
-  static async verifyConnection (connection: MongoClient): Promise<MongoClient> {
-    if (connection?.isConnected()) {
+  static async verifyConnection (connection: MongoClient = MongoHelper.client): Promise<MongoClient> {
+    if (!!connection && connection.isConnected()) {
       return connection
+    } else {
+      await MongoHelper.connect(MongoHelper.uri)
+      return MongoHelper.client
     }
-    await MongoHelper.connect(MongoHelper.uri)
-    return MongoHelper.client
   }
 
   static map (account: any): any {
