@@ -1,5 +1,6 @@
 {
   "editor.tabSize": 2,
+  "editor.fontSize": 15,
   "git.inputValidationSubjectLength": 100,
   "explorer.compactFolders": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
