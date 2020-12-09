@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse, Validation, Authentication } from './login-controller-protocols'
-import { UnauthorizedError } from '../../errors'
+import { ServerError, UnauthorizedError } from '../../errors'
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 
 export class LoginController implements Controller {
@@ -23,7 +23,7 @@ export class LoginController implements Controller {
 
       return ok({ accessToken })
     } catch (error) {
-      return serverError(error)
+      return serverError(new ServerError(error.stack))
     }
   }
 }
