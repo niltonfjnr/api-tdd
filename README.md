@@ -13,11 +13,13 @@ test-api-tdd
 
 > ## Princípios
 
-* Single Responsibility Principle (SRP)
-* Open Closed Principle (OCP)
-* Liskov Substitution Principle (LSP)
-* Interface Segregation Principle (ISP)
-* Dependency Inversion Principle (DIP)
+* SOLID
+> * Single Responsibility Principle (SRP)
+> * Open Closed Principle (OCP)
+> * Liskov Substitution Principle (LSP)
+> * Interface Segregation Principle (ISP)
+> * Dependency Inversion Principle (DIP)
+
 * Separation of Concerns (SOC)
 * Don't Repeat Yourself (DRY)
 * You Aren't Gonna Need It (YAGNI)
@@ -50,6 +52,15 @@ test-api-tdd
 * Continuous Integration
 * Continuous Delivery
 * Continuous Deployment
+
+> ## Camadas (layers)
+
+* domain (Esta camada depende apenas dela mesma)
+* validation
+* data (Esta camada conhece apenas a camada "domain")
+* infra (Esta camada conhece apenas a camada "data")
+* presentation
+* main
 
 > ## Bibliotecas e Ferramentas
 
