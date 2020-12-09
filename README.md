@@ -56,11 +56,12 @@ test-api-tdd
 > ## Camadas (layers)
 
 * domain (Esta camada depende apenas dela mesma)
-* validation
 * data (Esta camada conhece apenas a camada "domain")
-* infra (Esta camada conhece apenas a camada "data")
 * presentation
-* main
+* validation (Esta camada conhece apenas a camada "presentation")
+* infra (Esta camada conhece a camada "data" e "validation")
+* main (Esta camada conhece todas as camadas)
+    - De forma direta ou indireta tudo reflete aqui
 
 > ## Bibliotecas e Ferramentas
 
