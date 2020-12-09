@@ -70,6 +70,10 @@ const makeAuthentication = (): Authentication => {
   return new AuthenticationStub()
 }
 
+const makeFakeServerError = (): Error => {
+  return new ServerError(new Error().stack as string)
+}
+
 describe('SignUp Controller', () => {
   test('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
@@ -121,5 +125,13 @@ describe('SignUp Controller', () => {
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith({ email: 'any@mail.com', password: 'any_password' })
+  })
+
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest.spyOn(authenticationStub, 'auth')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(makeFakeServerError())))
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(makeFakeServerError()))
   })
 })
