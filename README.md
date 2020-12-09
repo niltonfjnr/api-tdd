@@ -14,11 +14,11 @@ test-api-tdd
 > ## Princípios
 
 * SOLID
-> * Single Responsibility Principle (SRP)
-> * Open Closed Principle (OCP)
-> * Liskov Substitution Principle (LSP)
-> * Interface Segregation Principle (ISP)
-> * Dependency Inversion Principle (DIP)
+    > * Single Responsibility Principle (SRP)
+    > * Open Closed Principle (OCP)
+    > * Liskov Substitution Principle (LSP)
+    > * Interface Segregation Principle (ISP)
+    > * Dependency Inversion Principle (DIP)
 
 * Separation of Concerns (SOC)
 * Don't Repeat Yourself (DRY)
