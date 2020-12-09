@@ -19,7 +19,7 @@
 02. ✅ Retorna erro **400** se name, email, password ou passwordConfirmation não forem fornecidos pelo client
 03. ✅ Retorna erro **400** se password e passwordConfirmation não forem iguais
 04. ✅ Retorna erro **400** se o campo email for um e-mail inválido
-05. ⬜️ Retorna erro **403** se o email fornecido já estiver em uso
+05. ✅ Retorna erro **403** se o email fornecido já estiver em uso
 06. ✅ Retorna erro **500** se der erro ao tentar gerar uma senha criptografada
 07. ✅ Retorna erro **500** se der erro ao tentar criar a conta do usuário
 08. ✅ Retorna erro **500** se der erro ao tentar gerar o token de acesso
