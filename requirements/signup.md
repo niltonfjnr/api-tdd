@@ -9,9 +9,9 @@
 05. ⬜️ **Valida** se já existe um usuário com o email fornecido
 06. ✅ Gera uma senha **criptografada** (essa senha não pode ser descriptografada)
 07. ✅ **Cria** uma conta para o usuário com os dados informados, **substituindo** a senha pela senha criptorafada
-08. ⬜️ Gera um **token** de acesso a partir do ID do usuário
-09. ⬜️ **Atualiza** os dados do usuário com o token de acesso gerado
-10. ⬜️ Retorna **200** com o token de acesso e o nome do usuário
+08. ✅ Gera um **token** de acesso a partir do ID do usuário
+09. ✅ **Atualiza** os dados do usuário com o token de acesso gerado
+10. ✅ Retorna **200** com o token de acesso e o nome do usuário
 
 > ## Exceções
 
@@ -22,5 +22,5 @@
 05. ⬜️ Retorna erro **403** se o email fornecido já estiver em uso
 06. ✅ Retorna erro **500** se der erro ao tentar gerar uma senha criptografada
 07. ✅ Retorna erro **500** se der erro ao tentar criar a conta do usuário
-08. ⬜️ Retorna erro **500** se der erro ao tentar gerar o token de acesso
-09. ⬜️ Retorna erro **500** se der erro ao tentar atualizar o usuário com o token de acesso gerado
+08. ✅ Retorna erro **500** se der erro ao tentar gerar o token de acesso
+09. ✅ Retorna erro **500** se der erro ao tentar atualizar o usuário com o token de acesso gerado
