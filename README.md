@@ -30,9 +30,9 @@ test-api-tdd
 > ## Design Patterns
 
 * Factory
-* Adapter
-* Composite
-* Decorator
+* Adapter [adaptRoute](./src/main/adapters/express/express-route-adapter.ts)
+* Composite [ValidationComposite](./src/validation/validators/validation-composite.ts)
+* Decorator [LogControllerDecorator](./src/mais/decorators)
 * Proxy
 * Dependency Injection
 * Abstract Server
