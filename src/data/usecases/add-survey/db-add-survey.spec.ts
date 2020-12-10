@@ -1,9 +1,8 @@
 import { DbAddSurvey } from './db-add-survey'
-
-import { AddSurveyRepository, AddSurveyModel } from './db-add-survey-protocols'
+import { AddSurvey, AddSurveyRepository, AddSurveyModel } from './db-add-survey-protocols'
 
 interface SutTypes {
-  sut: DbAddSurvey
+  sut: AddSurvey
   addSurveyRepositoryStub: AddSurveyRepository
 }
 
@@ -34,8 +33,8 @@ describe('DbAddSurvey Usecase', () => {
   test('Should call AddSurveyRepository with correct values', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addSurveyRepositoryStub, 'add')
-
     const surveyData = makeSurveyData()
+
     await sut.add(surveyData)
     expect(addSpy).toHaveBeenCalledWith(surveyData)
   })
