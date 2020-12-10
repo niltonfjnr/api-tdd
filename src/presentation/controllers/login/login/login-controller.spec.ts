@@ -1,10 +1,10 @@
 
 import { HttpRequest, Validation, Authentication } from './login-controller-protocols'
-import { MissingParamError, ServerError } from '../../errors'
-import { UnauthorizedError } from '../../errors/unauthorized-error'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
+import { MissingParamError, ServerError } from '../../../errors'
+import { UnauthorizedError } from '../../../errors/unauthorized-error'
+import { badRequest, ok, serverError, unauthorized } from '../../../helpers/http/http-helper'
 import { LoginController } from './login-controller'
-import { AuthenticationModel } from '../../../domain/usecases/authentication'
+import { AuthenticationModel } from '../../../../domain/usecases/authentication'
 
 interface SutTypes {
   sut: LoginController
