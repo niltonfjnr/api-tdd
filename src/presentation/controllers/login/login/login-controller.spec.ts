@@ -7,7 +7,7 @@ import { badRequest, ok, serverError, unauthorized } from '../../../helpers/http
 import { LoginController } from './login-controller'
 import { HttpRequest, Validation, Authentication } from './login-controller-protocols'
 
-interface SutTypes {
+type SutTypes = {
   sut: LoginController
   authenticationStub: Authentication
   validationStub: Validation

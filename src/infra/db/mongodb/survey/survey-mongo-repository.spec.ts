@@ -4,7 +4,7 @@ import { SurveyModel } from '@/domain/models/survey'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
-interface SutTypes {
+type SutTypes = {
   sut: SurveyMongoRepository
 }
 
