@@ -15,11 +15,11 @@ const makeSut = (): SutTypes => {
 
 jest.mock('bcrypt', () => ({
   async hash (): Promise<string> {
-    return await new Promise(resolve => resolve('hash'))
+    return 'hash'
   },
 
   async compare (): Promise<boolean> {
-    return await new Promise(resolve => resolve(true))
+    return true
   }
 }))
 

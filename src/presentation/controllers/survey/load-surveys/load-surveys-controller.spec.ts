@@ -19,7 +19,7 @@ const makeSut = (): SutTypes => {
 const makeLoadSurveys = (): LoadSurveys => {
   class LoadSurveysStub implements LoadSurveys {
     async load (): Promise<SurveyModel[]> {
-      return await new Promise(resolve => resolve(makeFakeSurveys()))
+      return makeFakeSurveys()
     }
   }
   return new LoadSurveysStub()

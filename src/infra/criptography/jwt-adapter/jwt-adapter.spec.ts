@@ -12,10 +12,10 @@ const makeSut = (key = 'secret'): SutTypes => {
 
 jest.mock('jsonwebtoken', () => ({
   async verify (): Promise<string> {
-    return await new Promise(resolve => resolve('any_value'))
+    return 'any_value'
   },
   async sign (): Promise<string> {
-    return await new Promise(resolve => resolve('any_token'))
+    return 'any_token'
   }
 }))
 

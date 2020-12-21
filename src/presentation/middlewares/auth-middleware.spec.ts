@@ -17,7 +17,7 @@ const makeSut = (role?: string): SutTypes => {
 const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (accessToken: string, role?: string): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(makeFakeAccount()))
+      return makeFakeAccount()
     }
   }
   return new LoadAccountByTokenStub()

@@ -27,7 +27,7 @@ const makeSut = (): SutTypes => {
 const makeHasher = (): Hasher => {
   class EncrypterStub implements Hasher {
     async hash (value: string): Promise<string> {
-      return await new Promise(resolve => resolve('hashed_password'))
+      return 'hashed_password'
     }
   }
   return new EncrypterStub()
@@ -49,7 +49,7 @@ const makeFakeAccountData = (): AddAccountModel => ({
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (account: AddAccountModel): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(makeFakeAccount()))
+      return makeFakeAccount()
     }
   }
   return new AddAccountRepositoryStub()
@@ -58,7 +58,7 @@ const makeAddAccountRepository = (): AddAccountRepository => {
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(null as unknown as AccountModel))
+      return null as unknown as AccountModel
     }
   }
   return new LoadAccountByEmailRepositoryStub()

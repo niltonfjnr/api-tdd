@@ -19,7 +19,7 @@ const makeSut = (role?: string): SutTypes => {
 const makeDecrypter = (): Decrypter => {
   class DecrypterStub implements Decrypter {
     async decrypt (token: string): Promise<string> {
-      return await new Promise(resolve => resolve('any_value'))
+      return 'any_value'
     }
   }
   return new DecrypterStub()
@@ -28,7 +28,7 @@ const makeDecrypter = (): Decrypter => {
 const makeLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
     async loadByToken (token: string, role?: string): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(makeFakeAccount()))
+      return makeFakeAccount()
     }
   }
   return new LoadAccountByTokenRepositoryStub()

@@ -21,7 +21,7 @@ const makeSut = (): SutTypes => {
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-      return await new Promise(resolve => resolve(ok(makeFakeAccount())))
+      return ok(makeFakeAccount())
     }
   }
   return new ControllerStub()
@@ -56,7 +56,6 @@ const makeFakeServerError = (): HttpResponse => {
 const makeLogErrorRepository = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository {
     async logError (stack: string): Promise<void> {
-      return await new Promise(resolve => resolve())
     }
   }
   return new LogErrorRepositoryStub()

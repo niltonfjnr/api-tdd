@@ -41,7 +41,6 @@ const makeFakeRequest = (): HttpRequest => ({
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
     async add (data: AddSurveyModel): Promise<void> {
-      return await new Promise(resolve => resolve())
     }
   }
   return new AddSurveyStub()
