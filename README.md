@@ -154,3 +154,6 @@ test-api-tdd
 * Upsert e ReturnOriginal
 * Push, Divide, Multiply, ArrayElemAt, Cond, Sum
 * Filter, Map, Reduce, MergeObjects, ConcatArrays
+
+> ## Mongo cli commands
+* https://dzone.com/articles/top-10-most-common-commands-for-beginners
