@@ -56,14 +56,17 @@ test-api-tdd
 * Continuous Delivery
 * Continuous Deployment
 
-> ## Camadas (layers)
+> ## Camadas (layers) -> 0 most important
 
-* domain (Esta camada depende apenas dela mesma)
-* data (Esta camada conhece apenas a camada "domain")
-* presentation
-* validation (Esta camada conhece apenas a camada "presentation")
-* infra (Esta camada conhece a camada "data" e "validation")
-* main (Esta camada conhece todas as camadas)
+* (0) domain (Esta camada depende apenas dela mesma)
+
+* (1)  data (Esta camada conhece apenas a camada "domain")
+* (1)  presentation (Esta camada conhece apenas a camada "domain")
+
+* (2)  validation (Esta camada conhece apenas a camada "presentation")
+* (3)  infra (Esta camada conhece a camada "data" e "validation")
+
+* (4)  main (Esta camada conhece todas as camadas)
     - De forma direta ou indireta tudo reflete aqui
 
 > ## Bibliotecas e Ferramentas
