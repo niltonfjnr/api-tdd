@@ -1,4 +1,4 @@
-import { SurveyModel } from '@/domain/models/survey'
+import { AddSurveyModel } from '@/domain/usecases/add-survey'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
@@ -14,10 +14,9 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const makeFakeSurveys = (): SurveyModel[] => {
+const makeFakeAddSurveys = (): AddSurveyModel[] => {
   return [
     {
-      id: 'any_id',
       question: 'any_question',
       answers: [{
         image: 'any_image',
@@ -26,7 +25,6 @@ const makeFakeSurveys = (): SurveyModel[] => {
       date: new Date()
     },
     {
-      id: 'other_id',
       question: 'other_question',
       answers: [{
         image: 'other_image',
@@ -70,9 +68,10 @@ describe('Suvey Mongo Repository', () => {
   describe('loadAll()', () => {
     test('Should load all surveys on success', async () => {
       const { sut } = makeSut()
-      await surveyCollection.insertMany(makeFakeSurveys())
+      await surveyCollection.insertMany(makeFakeAddSurveys())
       const surveys = await sut.loadAll()
       expect(surveys.length).toBe(2)
+      expect(surveys[0].id).toBeTruthy()
       expect(surveys[0].question).toBe('any_question')
       expect(surveys[1].question).toBe('other_question')
     })
@@ -87,10 +86,11 @@ describe('Suvey Mongo Repository', () => {
   describe('loadById()', () => {
     test('Should load survey by id on success', async () => {
       const { sut } = makeSut()
-      const result = await surveyCollection.insertOne(makeFakeSurveys()[0])
+      const result = await surveyCollection.insertOne(makeFakeAddSurveys()[0])
 
       const survey = await sut.loadById(result.ops[0]._id)
       expect(survey).toBeTruthy()
+      expect(survey.id).toBeTruthy()
     })
   })
 })

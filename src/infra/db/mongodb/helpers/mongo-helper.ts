@@ -31,8 +31,12 @@ export class MongoHelper {
     }
   }
 
-  static map (account: any): any {
-    const { _id, ...accountWithoutInternalId } = account
+  static map (data: any): any {
+    const { _id, ...accountWithoutInternalId } = data
     return Object.assign({}, accountWithoutInternalId, { id: _id })
+  }
+
+  static mapCollection (collection: any[]): any {
+    return collection.map(item => MongoHelper.map(item))
   }
 }
