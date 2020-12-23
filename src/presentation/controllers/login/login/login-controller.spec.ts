@@ -1,4 +1,4 @@
-import { AuthenticationModel } from '@/domain/usecases/authentication'
+import { AuthenticationModel } from '@/domain/usecases/account/authentication'
 
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { UnauthorizedError } from '@/presentation/errors/unauthorized-error'
