@@ -61,7 +61,7 @@ describe('Survey Routes', () => {
       const accessToken = await makeAccessToken('admin')
 
       await request(app)
-        .post('/api/surveys').set({ 'x-access-token': accessToken })
+        .post('/api/surveys').set('x-access-token', accessToken)
         .send({
           question: 'Question',
           answers: [
