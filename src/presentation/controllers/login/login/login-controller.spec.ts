@@ -1,4 +1,4 @@
-import { AuthenticationModel } from '@/domain/usecases/account/authentication'
+import { AuthenticationParams } from '@/domain/usecases/account/authentication'
 
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { UnauthorizedError } from '@/presentation/errors/unauthorized-error'
@@ -30,7 +30,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return 'any_token'
     }
   }
