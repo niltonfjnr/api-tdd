@@ -1,10 +1,13 @@
-import { SignUpController } from './signup-controller'
+import { mockAccountModel } from '@/domain/test'
+import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
+import { badRequest, ok, serverError, forbidden } from '@/presentation/helpers/http/http-helper'
+
 import {
   HttpRequest, AddAccount, AddAccountParams,
   AccountModel, Validation, Authentication, AuthenticationParams
 } from './signup-controller-protocols'
-import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
-import { badRequest, ok, serverError, forbidden } from '@/presentation/helpers/http/http-helper'
+
+import { SignUpController } from './signup-controller'
 
 type SutTypes = {
   sut: SignUpController
@@ -24,7 +27,7 @@ const makeSut = (): SutTypes => {
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add (account: AddAccountParams): Promise<AccountModel> {
-      const fakeAccount = makeFakeAccount()
+      const fakeAccount = mockAccountModel()
       return fakeAccount
     }
   }
@@ -39,15 +42,6 @@ const makeFakeRequest = (): HttpRequest => {
       password: 'any_password',
       passwordConfirmation: 'any_password'
     }
-  }
-}
-
-const makeFakeAccount = (): AccountModel => {
-  return {
-    id: 'valid_id',
-    name: 'valid_name',
-    email: 'valid@mail.com',
-    password: 'valid_password'
   }
 }
 

@@ -1,4 +1,7 @@
-import { LoadSurveyByIdRepository, SurveyModel } from './db-load-survey-by-id-protocols'
+import { throwError, mockSurveyModel } from '@/domain/test'
+import { mockLoadSurveyByIdRepository } from '@/data/test'
+
+import { LoadSurveyByIdRepository } from './db-load-survey-by-id-protocols'
 import { DbLoadSurveyById } from './db-load-survey-by-id'
 
 import MockDate from 'mockdate'
@@ -9,30 +12,10 @@ type SutTypes = {
 }
 
 const makeSut = (role?: string): SutTypes => {
-  const loadSurveysRepositoryStub = makeLoadSurveyByIdRepository()
+  const loadSurveysRepositoryStub = mockLoadSurveyByIdRepository()
   const sut = new DbLoadSurveyById(loadSurveysRepositoryStub)
   return { sut, loadSurveyByIdRepositoryStub: loadSurveysRepositoryStub }
 }
-
-const makeLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
-  class LoadSurveyByIdRepositoryStub implements LoadSurveyByIdRepository {
-    async loadById (id: string): Promise<SurveyModel> {
-      return makeFakeSurvey()
-    }
-  }
-  return new LoadSurveyByIdRepositoryStub()
-}
-
-const makeFakeSurvey = (): SurveyModel => (
-  {
-    id: 'any_id',
-    question: 'any_question',
-    answers: [{
-      image: 'any_image',
-      answer: 'any_answer'
-    }],
-    date: new Date()
-  })
 
 describe('DbLoadSurveyById Usecase', () => {
   beforeAll(() => {
@@ -52,13 +35,13 @@ describe('DbLoadSurveyById Usecase', () => {
   test('Should return Survey on success', async () => {
     const { sut } = makeSut()
     const survey = await sut.loadById('any_id')
-    expect(survey).toEqual(makeFakeSurvey())
+    expect(survey).toEqual(mockSurveyModel())
   })
 
   test('Should throw if LoadSurveyByIdRepository throws', async () => {
     const { sut, loadSurveyByIdRepositoryStub } = makeSut()
     jest.spyOn(loadSurveyByIdRepositoryStub, 'loadById')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      .mockImplementationOnce(throwError)
 
     const promise = sut.loadById('any_id')
     await expect(promise).rejects.toThrow()
