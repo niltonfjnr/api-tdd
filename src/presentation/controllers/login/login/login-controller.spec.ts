@@ -27,7 +27,7 @@ const mockRequest = (): HttpRequest => ({
   }
 })
 
-const makeFakeServerError = (): Error => {
+const mockServerError = (): Error => {
   return new ServerError(new Error().stack as string)
 }
 
@@ -51,10 +51,10 @@ describe('Login Controller', () => {
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(Promise.reject(makeFakeServerError()))
+      .mockReturnValueOnce(Promise.reject(mockServerError()))
     // .mockImplementationOnce(() => { throw new Error() })
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(serverError(makeFakeServerError()))
+    expect(httpResponse).toEqual(serverError(mockServerError()))
   })
 
   test('Should return 200 if valid credential are provided', async () => {

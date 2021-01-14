@@ -14,7 +14,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const makeFakeAddSurveys = (): AddSurveyParams[] => {
+const mockAddSurveys = (): AddSurveyParams[] => {
   return [
     {
       question: 'any_question',
@@ -68,7 +68,7 @@ describe('Suvey Mongo Repository', () => {
   describe('loadAll()', () => {
     test('Should load all surveys on success', async () => {
       const { sut } = makeSut()
-      await surveyCollection.insertMany(makeFakeAddSurveys())
+      await surveyCollection.insertMany(mockAddSurveys())
       const surveys = await sut.loadAll()
       expect(surveys.length).toBe(2)
       expect(surveys[0].id).toBeTruthy()
@@ -86,7 +86,7 @@ describe('Suvey Mongo Repository', () => {
   describe('loadById()', () => {
     test('Should load survey by id on success', async () => {
       const { sut } = makeSut()
-      const result = await surveyCollection.insertOne(makeFakeAddSurveys()[0])
+      const result = await surveyCollection.insertOne(mockAddSurveys()[0])
 
       const survey = await sut.loadById(result.ops[0]._id)
       expect(survey).toBeTruthy()
