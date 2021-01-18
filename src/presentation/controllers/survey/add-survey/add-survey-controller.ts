@@ -1,4 +1,5 @@
 import { AddSurvey } from '@/domain/usecases/survey/add-survey'
+import { ServerError } from '@/presentation/errors'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse, Validation } from './add-survey-controller-protocols'
 
@@ -20,7 +21,7 @@ export class AddSurveyController implements Controller {
 
       return noContent()
     } catch (error) {
-      return serverError(error)
+      return serverError(new ServerError(error.stack))
     }
   }
 }

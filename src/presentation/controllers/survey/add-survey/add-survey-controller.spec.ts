@@ -1,6 +1,7 @@
 import { throwError } from '@/domain/test'
 import { badRequest, serverError, noContent } from '@/presentation/helpers/http/http-helper'
 import { mockValidation, mockAddSurvey } from '@/presentation/test'
+import { ServerError } from '@/presentation/errors'
 
 import { Controller, HttpRequest, AddSurvey, Validation } from './add-survey-controller-protocols'
 import { AddSurveyController } from './add-survey-controller'
@@ -68,11 +69,9 @@ describe('AddSurvey Controller', () => {
 
   test('Should return 500 if AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut()
-    jest.spyOn(addSurveyStub, 'add')
-      .mockImplementationOnce(throwError)
-
+    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(async () => Promise.reject(throwError()))
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(serverError(new Error()))
+    expect(httpResponse).toEqual(serverError(new ServerError('')))
   })
 
   test('Should return 204 on success', async () => {
