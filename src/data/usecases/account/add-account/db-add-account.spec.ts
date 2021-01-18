@@ -1,21 +1,21 @@
 import { mockAccountModel, mockAddAccountParams, throwError } from '@/domain/test'
-import { mockAddAccountRepository, mockHasher, mockLoadAccountByEmailRepository } from '@/data/test'
+import { mockAddAccountRepository, HasherSpy, mockLoadAccountByEmailRepository } from '@/data/test'
 
 import {
-  Hasher, AccountModel, AddAccountRepository, LoadAccountByEmailRepository
+  AccountModel, AddAccountRepository, LoadAccountByEmailRepository
 } from './db-add-account-protocols'
 
 import { DbAddAccount } from './db-add-account'
 
 type SutTypes = {
   sut: DbAddAccount
-  hasherStub: Hasher
+  hasherSpy: HasherSpy
   addAccountRepositoryStub: AddAccountRepository
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
 }
 
 const makeSut = (): SutTypes => {
-  const hasherStub = mockHasher()
+  const hasherStub = new HasherSpy()
   const addAccountRepositoryStub = mockAddAccountRepository()
 
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository()
@@ -24,7 +24,7 @@ const makeSut = (): SutTypes => {
 
   return {
     sut: new DbAddAccount(hasherStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub),
-    hasherStub,
+    hasherSpy: hasherStub,
     addAccountRepositoryStub,
     loadAccountByEmailRepositoryStub
   }
@@ -32,29 +32,25 @@ const makeSut = (): SutTypes => {
 
 describe('DbAddAccount UseCases', () => {
   test('Should call Hasher with correct password', async () => {
-    const { sut, hasherStub } = makeSut()
-    const encryptSpy = jest.spyOn(hasherStub, 'hash')
-    await sut.add(mockAddAccountParams())
-    expect(encryptSpy).toHaveBeenCalledWith('any_password')
+    const { sut, hasherSpy } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.add(addAccountParams)
+    expect(hasherSpy.plainText).toBe(addAccountParams.password)
   })
 
   test('Should throw if Hasher throws', async () => {
-    const { sut, hasherStub } = makeSut()
-    jest.spyOn(hasherStub, 'hash').mockImplementationOnce(throwError)
+    const { sut, hasherSpy } = makeSut()
+    jest.spyOn(hasherSpy, 'hash').mockImplementationOnce(throwError)
 
     const promise = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should call AddAccountRepository with correct values', async () => {
-    const { sut, addAccountRepositoryStub } = makeSut()
-    const addSpy = jest.spyOn(addAccountRepositoryStub, 'add')
-    await sut.add(mockAddAccountParams())
-    expect(addSpy).toHaveBeenCalledWith({
-      name: 'any_name',
-      email: 'any_email@mail.com',
-      password: 'hashed_password'
-    })
+    const { sut } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    const account = await sut.add(addAccountParams)
+    expect(addAccountParams.password).toBe(account.password)
   })
 
   test('Should throw if AddAccountRepository throws', async () => {
