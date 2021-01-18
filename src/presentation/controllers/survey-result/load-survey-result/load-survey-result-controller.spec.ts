@@ -9,6 +9,8 @@ import {
 
 import { LoadSurveyResultController } from './load-survey-result-controller'
 
+import MockDate from 'mockdate'
+
 type SutTypes = {
   sut: LoadSurveyResultController
   loadSurveyByIdStub: LoadSurveyById
@@ -29,6 +31,13 @@ const mockRequest = (): HttpRequest => ({
 })
 
 describe('LoadSurveyResult Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   test('Should call LoadSurveyById wiht correct value', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
