@@ -106,4 +106,17 @@ describe('SaveSurveyResult Controller', () => {
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(ok(mockSurveyResultModel()))
   })
+
+  test('Should return null if there is no accountId', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({
+      params: {
+        surveyId: 'any_survey_id'
+      },
+      body: {
+        answer: 'any_answer'
+      }
+    })
+    expect(httpResponse).toEqual(null)
+  })
 })
