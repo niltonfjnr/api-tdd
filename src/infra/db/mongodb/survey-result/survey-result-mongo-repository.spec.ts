@@ -100,7 +100,6 @@ describe('Suvey Mongo Repository', () => {
         accountId: account.id
       })
         .toArray()
-      console.log('surveyResult', surveyResult)
 
       expect(surveyResult).toBeTruthy()
       expect(surveyResult.length).toBe(1)
