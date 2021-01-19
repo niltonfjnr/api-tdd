@@ -1,6 +1,5 @@
 import {
-  SurveyResultModel, SaveSurveyResult, LoadSurveyResultRepository,
-  SaveSurveyResultParams, SaveSurveyResultRepository
+  SaveSurveyResult, SaveSurveyResultParams, SurveyResultModel, SaveSurveyResultRepository, LoadSurveyResultRepository
 } from './db-save-survey-result-protocols'
 
 export class DbSaveSurveyResult implements SaveSurveyResult {
