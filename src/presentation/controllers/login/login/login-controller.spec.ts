@@ -5,6 +5,7 @@ import { MissingParamError, UnauthorizedError } from '@/presentation/errors'
 import { AuthenticationSpy, ValidationSpy } from '@/presentation/test'
 import { throwError, mockAuthenticationParams } from '@/domain/test'
 import faker from 'faker'
+import { AuthenticationModel } from '@/domain/models/authentication'
 
 const mockRequest = (): HttpRequest => ({
   body: mockAuthenticationParams()
@@ -40,7 +41,7 @@ describe('Login Controller', () => {
 
   test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationSpy } = makeSut()
-    delete authenticationSpy.token
+    authenticationSpy.authenticationModel = null as unknown as AuthenticationModel
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(unauthorized(new UnauthorizedError()))
   })
@@ -55,7 +56,7 @@ describe('Login Controller', () => {
   test('Should return 200 if valid credentials are provided', async () => {
     const { sut, authenticationSpy } = makeSut()
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(ok({ accessToken: authenticationSpy.token }))
+    expect(httpResponse).toEqual(ok(authenticationSpy.authenticationModel))
   })
 
   test('Should call Validation with correct value', async () => {
