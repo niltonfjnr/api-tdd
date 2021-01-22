@@ -2,14 +2,15 @@ import { SurveyResultModel } from '@/domain/models/survey-result'
 import { SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
 import { SaveSurveyResultRepository } from '@/data/protocols/db/survey-result/save-survey-result-repository'
 import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository'
-import { MongoHelper, QueryBuilder } from '@/infra/db/mongodb/helpers'
+
+import { MongoHelper, QueryBuilder } from '../helpers'
 
 import { ObjectId } from 'mongodb'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
   async save (data: SaveSurveyResultParams): Promise<void> {
-    const surveyResultsCollection = await MongoHelper.getCollection('surveyResults')
-    await surveyResultsCollection.findOneAndUpdate({
+    const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
+    await surveyResultCollection.findOneAndUpdate({
       surveyId: new ObjectId(data.surveyId),
       accountId: new ObjectId(data.accountId)
     }, {
@@ -23,8 +24,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
   }
 
   async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
-    const surveyResultsCollection = await MongoHelper.getCollection('surveyResults')
-
+    const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     const query = new QueryBuilder()
       .match({
         surveyId: new ObjectId(surveyId)
@@ -177,8 +177,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
         answers: '$answers'
       })
       .build()
-
-    const surveyResult = await surveyResultsCollection.aggregate(query).toArray()
+    const surveyResult = await surveyResultCollection.aggregate(query).toArray()
     return surveyResult.length ? surveyResult[0] : null
   }
 }
