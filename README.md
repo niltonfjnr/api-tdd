@@ -68,6 +68,7 @@ test-api-tdd
 
 * (4)  main (Esta camada conhece todas as camadas)
     - De forma direta ou indireta tudo reflete aqui
+    - Alta dependência
 
 > ## Bibliotecas e Ferramentas
 
